@@ -1,0 +1,36 @@
+{
+  "name": "playwright-bdd",
+  "type": "module",
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.5.2",
+    "@typescript-eslint/eslint-plugin": "^8.44.0",
+    "@typescript-eslint/parser": "^8.44.0",
+    "eslint": "^9.36.0",
+    "eslint-plugin-playwright": "^2.2.2",
+    "playwright-bdd": "^8.4.2",
+    "prettier": "^3.6.2"
+  },
+  "scripts": {
+    "format": "prettier --write \"**/*.{ts,js,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,json}\"",
+    "lint": "eslint . --ext .ts,.js",
+    "lint:fix": "eslint . --ext .ts,.js --fix",
+    "test": "npx bddgen && npx playwright test",
+    "test:chrome": "npx bddgen && npx playwright test --project=Chrome",
+    "test:edge": "npx bddgen && npx playwright test --project=Edge",
+    "test:firefox": "npx bddgen && npx playwright test --project=Firefox",
+    "test:safari": "npx bddgen && npx playwright test --project=Safari",
+    "test:android": "npx bddgen && npx playwright test --project=Android",
+    "test:iphone": "npx bddgen && npx playwright test --project=iPhone",
+    "test:desktop": "npx bddgen && npx playwright test --project=Chrome --project=Edge --project=Firefox",
+    "test:mobile": "npx bddgen && npx playwright test --project=Android --project=iPhone",
+    "test:all": "npx bddgen && npx playwright test",
+    "test:report": "npx playwright show-report",
+    "ci": "npm run lint && npm run format:check && npm run test"
+  },
+  "dependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "js-yaml": "^4.1.0"
+  }
+}
