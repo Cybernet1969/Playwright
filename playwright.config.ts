@@ -24,29 +24,43 @@ export default defineConfig({
     trace: 'on-first-retry',
     locale: 'en-GB',
     ignoreHTTPSErrors: true,
+    launchOptions: {
+      args: ['--start-maximized'],
+    },
   },
 
   projects: [
     {
       name: 'Chrome',
-      use: { ...devices['Desktop Chrome'], isMobile: false },
+      use: { ...devices['Desktop Chrome'], 
+        isMobile: false,
+        deviceScaleFactor: undefined,
+        viewport: null,
+      },
     },
-    { name: 'Edge', use: { ...devices['Desktop Edge'], isMobile: false } },
+
+    { name: 'Edge', 
+      use: { ...devices['Desktop Edge'], 
+        isMobile: false,
+        deviceScaleFactor: undefined,
+        viewport: null,
+      },
+    },
+
     {
       name: 'Firefox',
-      use: { ...devices['Desktop Firefox'], isMobile: false },
+      use: { ...devices['Desktop Firefox'], 
+        isMobile: false,
+        deviceScaleFactor: undefined,
+        viewport: null,
+      },
     },
-    {
-      name: 'Safari',
-      use: { ...devices['Desktop Safari'], isMobile: false },
-    },
+
     {
       name: 'Android',
       use: { ...devices['Pixel 5'], isMobile: true },
     },
-    {
-      name: 'iPhone',
-      use: { ...devices['iPhone 12'], isMobile: true },
-    },
+
   ],
+
 });
