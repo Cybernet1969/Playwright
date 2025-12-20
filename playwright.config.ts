@@ -32,15 +32,18 @@ export default defineConfig({
   projects: [
     {
       name: 'Chrome',
-      use: { ...devices['Desktop Chrome'], 
+      use: {
+        ...devices['Desktop Chrome'],
         isMobile: false,
         deviceScaleFactor: undefined,
         viewport: null,
       },
     },
 
-    { name: 'Edge', 
-      use: { ...devices['Desktop Edge'], 
+    {
+      name: 'Edge',
+      use: {
+        ...devices['Desktop Edge'],
         isMobile: false,
         deviceScaleFactor: undefined,
         viewport: null,
@@ -49,7 +52,8 @@ export default defineConfig({
 
     {
       name: 'Firefox',
-      use: { ...devices['Desktop Firefox'], 
+      use: {
+        ...devices['Desktop Firefox'],
         isMobile: false,
         deviceScaleFactor: undefined,
         viewport: null,
@@ -60,7 +64,5 @@ export default defineConfig({
       name: 'Android',
       use: { ...devices['Pixel 5'], isMobile: true },
     },
-
   ],
-
 });
