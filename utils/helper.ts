@@ -53,3 +53,28 @@ export async function customFill(
     throw new Error(`Failed to fill ${elementDesc} with value "${value}": ${error}`);
   }
 }
+
+export async function customType(
+  locator: Locator,
+  value: string,
+  description?: string,
+  options?: {
+    timeout?: number;
+    delay?: number;
+    clearFirst?: boolean;
+  }
+): Promise<void> {
+  const elementDesc = description || 'input field';
+  try {
+    await locator.waitFor({ state: 'visible', timeout: options?.timeout || GLOBAL_TIMEOUT });
+    await locator.waitFor({ state: 'attached', timeout: options?.timeout || GLOBAL_TIMEOUT });
+    await locator.scrollIntoViewIfNeeded();
+    if (options?.clearFirst !== false) {
+      await locator.clear({ timeout: options?.timeout || GLOBAL_TIMEOUT });
+    }
+
+    await (locator as any).pressSequentially(value, { delay: options?.delay, timeout: options?.timeout || GLOBAL_TIMEOUT });
+  } catch (error) {
+    throw new Error(`Failed to type into ${elementDesc} with value "${value}": ${error}`);
+  }
+}
