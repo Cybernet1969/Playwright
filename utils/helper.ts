@@ -1,6 +1,13 @@
 import { Locator, Page } from '@playwright/test';
 import { GLOBAL_TIMEOUT } from '../playwright.config.js';
 
+export type CustomActionOptions = {
+  timeout?: number;
+  force?: boolean;
+  clearFirst?: boolean;
+  delay?: number;
+};
+
 export function isMobile(page: Page): boolean {
   return (page.viewportSize()?.width ?? 1920) < 768;
 }
@@ -8,10 +15,7 @@ export function isMobile(page: Page): boolean {
 export async function customClick(
   locator: Locator,
   description?: string,
-  options?: {
-    timeout?: number;
-    force?: boolean;
-  }
+  options?: CustomActionOptions
 ): Promise<void> {
   const elementDesc = description || 'element';
   try {
@@ -31,11 +35,7 @@ export async function customFill(
   locator: Locator,
   value: string,
   description?: string,
-  options?: {
-    timeout?: number;
-    force?: boolean;
-    clearFirst?: boolean;
-  }
+  options?: CustomActionOptions
 ): Promise<void> {
   const elementDesc = description || 'input field';
   try {
@@ -58,11 +58,7 @@ export async function customType(
   locator: Locator,
   value: string,
   description?: string,
-  options?: {
-    timeout?: number;
-    delay?: number;
-    clearFirst?: boolean;
-  }
+  options?: CustomActionOptions
 ): Promise<void> {
   const elementDesc = description || 'input field';
   try {
@@ -72,8 +68,10 @@ export async function customType(
     if (options?.clearFirst !== false) {
       await locator.clear({ timeout: options?.timeout || GLOBAL_TIMEOUT });
     }
-
-    await (locator as any).pressSequentially(value, { delay: options?.delay, timeout: options?.timeout || GLOBAL_TIMEOUT });
+    await locator.pressSequentially(value, {
+      delay: options?.delay,
+      timeout: options?.timeout || GLOBAL_TIMEOUT,
+    });
   } catch (error) {
     throw new Error(`Failed to type into ${elementDesc} with value "${value}": ${error}`);
   }
